@@ -1,0 +1,92 @@
+%% <school/Epochenheft.tex> template 1.1.1 by Robin `ypid` Schneider <ypid23@aol.de>
+%% The current version can be found on: https://github.com/ypid/typesetting/blob/master/templates/school/Epochenheft.tex
+%%% preamble
+%\RequirePackage{snapshot}		%% \jobname.dep
+%\listfiles %% listfiles to logfile
+\RequirePackage{RequirePackageRS}
+\documentclass[12pt,a4paper,ngerman,numbers=noenddot,toc=listof]{scrartcl}	%% ,draft,pointednumbers,
+\input{files/header/praeambel}
+\usepackage{footingRS}
+\usepackage[
+%	style=numeric,
+%	style=alphabetic,sorting=anyt,
+%	style=authoryear,
+%	style=authortitle,
+	style=authortitle-comp,
+%	style=verbose,
+%	style=verbose-note,
+%	style=verbose-trad1,
+%	style=verbose-trad2,
+%	style=reading,
+%	style=draft,
+%	sorting=none,			%% In zitierter Reihenfolge in Literaturverzeichnis
+	natbib=true,
+	backend=biber,
+]{biblatex}
+\DeclareFieldFormat{urldate}{\mkbibparens{abgerufen am\space#1}}
+\defbibheading{quell}{\section{Quellenverzeichnis}}
+\bibliography{
+	files/header/bibliographie,
+%	/home/rsadmin/Dokumente/LaTeX/BibTeX/publikationen
+}
+%% specific indications
+\input{files/header/metainfos}
+\SetTITEL{Wirtschaftsgeographie}
+\SetKLASSE{12}
+\SetSUBJECT{Guantanamo Bay}
+\SetURL{http://robin.de.marissa.hostorama.ch/Klasse/12/Wirtschaftsgeographie_Guantanamo.pdf}
+%\renewcommand{\licenseadd}{, mit Ausnahme der Bilder,\xspace}
+\SetCREATEDATE{2012}{01}{29}{17}{36}{23}		%% {YYYY}{MM}{DD}{HH}{MM}{SS}
+\SetABGABEDATUM{2}{2012}{02}{08}{1}
+\usepackage{
+	schoolPDFinfoRS,
+	tableRS,
+}
+\chead{\TITEL\ -- \SUBJECT}
+\SetDraft{on}
+%%% body
+\begin{document}
+\pdfbookmark[1]{\Titlepagename}{titlepage}\pagenumbering{Roman}\thispagestyle{empty}
+\input{files/titlepage}
+%\newpage\pdfbookmark[1]{\contentsname}{inhaltsverzeichnis}
+%\tableofcontents	%% Inhaltsverzeichnis
+%\listoffigures		%% Abbildungsverzeichnis
+%\listoftables		%% Tabellenverzeichnis
+%\lstlistoflistings	%% Quellcodeverzeichnis
+%\input{/home/rsadmin/Dokumente/LaTeX/Abkuerzungen/Chemie}
+
+\setcounter{headpages}{\value{page}}\newpage\pagenumbering{arabic}
+%%%%%%%%%%%
+\input{files/chapters/foreword_Wirtschaftsgeographie}
+
+\input{files/chapters/rights}
+
+\input{files/chapters/conclusion}
+
+\setcounter{sectionsV}{\value{section}}		%% Speichert die sectionnummer vor \appendix zwischen
+\appendix	%% Sorgt für Buchstaben im Inhaltsverzeichnis
+
+\nocite{wiki:Guantanamo_Bay_Naval_Base}
+\nocite{wiki:Guantanamo_Bay}
+\newpage
+\printbibliography[heading=bibnumbered]
+
+\vfill
+\printURLlong
+\printlicense
+\printendsignature
+%\ifDraft{
+  \newpage\Statistiken
+  Status:~\progressbar{.95} (eigenes Ermessen)
+  \newpage
+  \begin{sourcefiletable}{1}
+	\sourcefile{Hauptdatei}{\jobname.tex}
+%	\sourcefile{Metainformationen}{files/metainfos.tex}
+	\sourcefile{Titelseite}{files/titlepage.tex}
+	\sourcefile{Vorwort}{files/chapters/foreword_Wirtschaftsgeographie.tex}
+	\sourcefile{Rechtsfreier Raum Guantanamo}{files/chapters/rights.tex}
+	\sourcefile{Resümee}{files/chapters/conclusion.tex}
+	\Isourcefile{Literatur-Datenbank}{files/header/bibliographie.bib}
+  \end{sourcefiletable}
+%}{}
+\end{document}

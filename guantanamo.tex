@@ -1,0 +1,106 @@
+%% <school/Epochenheft.tex> template 1.1.1 by Robin `ypid` Schneider <ypid23@aol.de>
+%% The current version can be found on: https://github.com/ypid/typesetting/blob/master/templates/school/Epochenheft.tex
+%%% preamble
+%\RequirePackage{snapshot}		%% \jobname.dep
+%\listfiles %% listfiles to logfile
+\RequirePackage{RequirePackageRS}
+\documentclass[12pt,a4paper,ngerman,numbers=noenddot,toc=listof]{scrartcl}	%% ,draft,pointednumbers,
+\input{files/header/praeambel}
+\usepackage[
+%	style=numeric,
+%	style=alphabetic,sorting=anyt,
+%	style=authoryear,
+%	style=authortitle,
+	style=authortitle-comp,
+%	style=verbose,
+%	style=verbose-note,
+%	style=verbose-trad1,
+%	style=verbose-trad2,
+%	style=reading,
+%	style=draft,
+%	sorting=none,			%% In zitierter Reihenfolge in Literaturverzeichnis
+	natbib=true,
+	backend=biber,
+	backref,
+]{biblatex}
+\DeclareFieldFormat{urldate}{\mkbibparens{abgerufen am\space#1}}
+\defbibheading{quell}{\section{Quellenverzeichnis}}
+\bibliography{
+	files/header/bibliographie,
+}
+%% specific indications
+\input{files/header/metainfos}
+\SetTITEL{Guantanamo Bay}
+\SetKLASSE{12}
+\SetSUBJECT{Hausaufgabe}
+\SetURL{http://ypid.files.wordpress.com/2013/04//guantanamo.pdf}
+\SetGitURL{https://github.com/ypid/document-Guantanamo}
+%\renewcommand{\licenseadd}{, mit Ausnahme der Bilder,\xspace}
+\SetCREATEDATE{2011}{10}{16}{17}{36}{23}		%% {YYYY}{MM}{DD}{HH}{MM}{SS}
+\SetABGABEDATUM{2}{2011}{11}{06}{1}
+\usepackage{
+	schoolPDFinfoRS,
+	tableRS,
+}
+\SetDraft{on}
+%%% body
+\begin{document}
+\pdfbookmark[1]{\Titlepagename}{titlepage}\pagenumbering{Roman}\thispagestyle{empty}
+\input{files/titlepage}
+\newpage\pdfbookmark[1]{\contentsname}{inhaltsverzeichnis}
+\tableofcontents	%% Inhaltsverzeichnis
+%\listoffigures		%% Abbildungsverzeichnis
+%\listoftables		%% Tabellenverzeichnis
+%\lstlistoflistings	%% Quellcodeverzeichnis
+%\input{/home/rsadmin/Dokumente/LaTeX/Abkuerzungen/Chemie}
+
+\setcounter{headpages}{\value{page}}\newpage\pagenumbering{arabic}
+%%%%%%%%%%%
+\include{files/chapters/foreword}
+
+\newpage
+\input{files/chapters/rights}
+\input{files/chapters/closure}
+
+\include{files/chapters/conclusion}
+
+\setcounter{sectionsV}{\value{section}}		%% Speichert die sectionnummer vor \appendix zwischen
+\appendix	%% Sorgt für Buchstaben im Inhaltsverzeichnis
+
+\nocite{wiki:Guantanamo_Bay_Naval_Base, wiki:Guantanamo_Bay}
+\newpage
+\printbibliography[heading=quell]
+
+\vfill
+\printURLlong
+\printlicense
+\printendsignature
+%\ifDraft{
+  \newpage\Statistiken
+  Status:~\progressbar{.99} (eigenes Ermessen)
+  \newpage
+  \begin{sourcefiletable}{1}
+	\Isourcefile{Hauptdatei}{\jobname.tex}
+	\Isourcefile{Präambel}{files/header/praeambel.tex}
+	\Isourcefile{Metainformationen}{files/header/metainfos.tex}
+	\Isourcefile{Titelseite}{files/titlepage.tex}
+	\Isourcefile{Vorwort}{files/chapters/foreword.tex}
+	\Isourcefile{Rechtsfreier Raum Guantanamo}{files/chapters/rights.tex}
+	\Isourcefile{Schließung}{files/chapters/closure.tex}
+	\Isourcefile{Resümee}{files/chapters/conclusion.tex}
+	\Isourcefile{Literatur-Datenbank}{files/header/bibliographie.bib}
+  \end{sourcefiletable}
+%}{}
+  \begin{landscape}
+	\pagestyle{empty}
+	\pdfbookmark[2]{Versionshinweise}{versionshinweise}
+	\subsection*{Versionshinweise}
+	\input{files/git/versions-log}
+	% \printgitstatlandscape{1}
+  \end{landscape}
+	% \printgitstat{1}
+%	\subsubsection*{Dateien?}
+%	\pdfbookmark[3]{Dateien?}{files_by_date}
+%	\includegraphics[width=14cm]{files/git/stats/files_by_date-crop}
+%	\listoffixmes
+\end{document}
